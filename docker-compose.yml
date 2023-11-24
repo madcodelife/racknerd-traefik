@@ -15,6 +15,7 @@ services:
       - '--certificatesresolvers.myresolver.acme.email=gassnake999@gmail.com'
       - '--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json'
     ports:
+      - '80:80'
       - '443:443'
       - '8080:8080'
     volumes:
