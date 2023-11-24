@@ -25,3 +25,16 @@ services:
       - 'traefik.http.routers.whoami.rule=Host(`madcodelife.me`)'
       - 'traefik.http.routers.whoami.entrypoints=websecure'
       - 'traefik.http.routers.whoami.tls.certresolver=myresolver'
+
+  tesla:
+    image: 'nginx:latest'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.tesla.rule=Host(`tesla.madcodelife.me`)'
+      - 'traefik.http.routers.tesla.entrypoints=websecure'
+      - 'traefik.http.routers.tesla.tls.certresolver=myresolver'
+      - 'traefik.http.routers.tesla.middlewares=redirect-tesla'
+
+      - 'traefik.http.middlewares.redirect-tesla.redirectregex.regex=(.)*'
+      - 'traefik.http.middlewares.redirect-tesla.redirectregex.replacement=http://home.madcodelife.me:10001'
+      - 'traefik.http.middlewares.redirect-tesla.redirectregex.permanent=true'
