@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3'
 
 services:
   traefik:
@@ -21,14 +21,8 @@ services:
     volumes:
       - './letsencrypt:/letsencrypt'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-
-  whoami:
-    image: 'traefik/whoami'
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.whoami.rule=Host(`madcodelife.me`)'
-      - 'traefik.http.routers.whoami.entrypoints=websecure'
-      - 'traefik.http.routers.whoami.tls.certresolver=myresolver'
+    networks:
+      - network
 
   tesla:
     image: 'nginx:latest'
@@ -53,3 +47,9 @@ services:
       - 'traefik.http.middlewares.redirect-tesla-grafana.redirectregex.regex=(.)*'
       - 'traefik.http.middlewares.redirect-tesla-grafana.redirectregex.replacement=http://home.madcodelife.me:10002'
       - 'traefik.http.middlewares.redirect-tesla-grafana.redirectregex.permanent=true'
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
