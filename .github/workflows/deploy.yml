@@ -15,4 +15,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /root/traefik
+            git pull --rebase origin main
             docker compose up -d --remove-orphans
