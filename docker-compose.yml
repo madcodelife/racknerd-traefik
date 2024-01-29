@@ -24,11 +24,22 @@ services:
     networks:
       - network
 
-  tesla:
+  redirect:
     image: 'nginx:latest'
     labels:
-      # tesla
       - 'traefik.enable=true'
+
+      # blog
+      - 'traefik.http.routers.blog.rule=Host(`blog.madcodelife.me`)'
+      - 'traefik.http.routers.blog.entrypoints=websecure'
+      - 'traefik.http.routers.blog.tls.certresolver=myresolver'
+      - 'traefik.http.routers.blog.middlewares=redirect-blog'
+
+      - 'traefik.http.middlewares.redirect-blog.redirectregex.regex=(.)*'
+      - 'traefik.http.middlewares.redirect-blog.redirectregex.replacement=https://madcodelife.me'
+      - 'traefik.http.middlewares.redirect-blog.redirectregex.permanent=true'
+
+      # tesla
       - 'traefik.http.routers.tesla.rule=Host(`tesla.madcodelife.me`)'
       - 'traefik.http.routers.tesla.entrypoints=websecure'
       - 'traefik.http.routers.tesla.tls.certresolver=myresolver'
