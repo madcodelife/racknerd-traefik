@@ -29,34 +29,24 @@ services:
     labels:
       - 'traefik.enable=true'
 
-      # blog
-      - 'traefik.http.routers.blog.rule=Host(`blog.madcodelife.me`)'
-      - 'traefik.http.routers.blog.entrypoints=websecure'
-      - 'traefik.http.routers.blog.tls.certresolver=myresolver'
-      - 'traefik.http.routers.blog.middlewares=redirect-blog'
-
-      - 'traefik.http.middlewares.redirect-blog.redirectregex.regex=(.)*'
-      - 'traefik.http.middlewares.redirect-blog.redirectregex.replacement=https://madcodelife.me'
-      - 'traefik.http.middlewares.redirect-blog.redirectregex.permanent=true'
-
       # tesla
-      - 'traefik.http.routers.tesla.rule=Host(`tesla.madcodelife.me`)'
+      - 'traefik.http.routers.tesla.rule=Host(`tesla.madcodelife.com`)'
       - 'traefik.http.routers.tesla.entrypoints=websecure'
       - 'traefik.http.routers.tesla.tls.certresolver=myresolver'
       - 'traefik.http.routers.tesla.middlewares=redirect-tesla'
 
       - 'traefik.http.middlewares.redirect-tesla.redirectregex.regex=(.)*'
-      - 'traefik.http.middlewares.redirect-tesla.redirectregex.replacement=http://home.madcodelife.me:10001'
+      - 'traefik.http.middlewares.redirect-tesla.redirectregex.replacement=http://h.madcodelife.com:10001'
       - 'traefik.http.middlewares.redirect-tesla.redirectregex.permanent=true'
 
       # tesla grafana
-      - 'traefik.http.routers.tesla-grafana.rule=Host(`tesla-grafana.madcodelife.me`)'
+      - 'traefik.http.routers.tesla-grafana.rule=Host(`tesla-grafana.madcodelife.com`)'
       - 'traefik.http.routers.tesla-grafana.entrypoints=websecure'
       - 'traefik.http.routers.tesla-grafana.tls.certresolver=myresolver'
       - 'traefik.http.routers.tesla-grafana.middlewares=redirect-tesla-grafana'
 
       - 'traefik.http.middlewares.redirect-tesla-grafana.redirectregex.regex=(.)*'
-      - 'traefik.http.middlewares.redirect-tesla-grafana.redirectregex.replacement=http://home.madcodelife.me:10002'
+      - 'traefik.http.middlewares.redirect-tesla-grafana.redirectregex.replacement=http://h.madcodelife.com:10002'
       - 'traefik.http.middlewares.redirect-tesla-grafana.redirectregex.permanent=true'
     networks:
       - network
